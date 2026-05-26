@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>C++ Workspace</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="welcome-body">
+
+    <div class="welcome-container">
+
+        <h1>C++ Workspace</h1>
+
+        <p class="welcome-subtitle">
+
+            Secure containerized C++ development environment
+
+        </p>
+
+        <div class="welcome-actions">
+
+            <a
+            href="cpp.html"
+
+            onclick="
+localStorage.removeItem(
+'cppFile'
+)
+">
+
+                <button class="welcome-btn">
+
+                    New C++ File
+
+                </button>
+
+            </a>
+
+            <label
+            class="welcome-btn secondary-btn">
+
+                Open File
+
+                <input
+
+                    type="file"
+
+                    id="cppFileInput"
+
+                    hidden
+
+                    accept=".cpp"
+
+                >
+
+            </label>
+
+        </div>
+
+    </div>
+
+    <script src="open-cpp-file.js"></script>
+
+</body>
+
+</html>

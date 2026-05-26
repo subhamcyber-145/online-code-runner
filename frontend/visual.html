@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Visual Playground</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="visual-body">
+
+    <div class="visual-layout">
+
+        <div class="editor-side">
+
+            <div class="topbar">
+
+                <span>
+
+                    Visual Playground
+
+                </span>
+
+                <div class="topbar-buttons">
+
+                    <button
+                    id="save-btn"
+
+                    onclick="saveFile()">
+
+                        Save
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div id="visual-editor"></div>
+
+        </div>
+
+        <div id="drag-bar"></div>
+
+        <div class="preview-side">
+
+            <iframe
+            id="preview-frame">
+
+            </iframe>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+
+    <script src="visual.js"></script>
+
+</body>
+
+</html>

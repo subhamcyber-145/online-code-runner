@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Online Code Runner</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="hero">
+
+            <div class="logo">
+                &lt;/&gt;
+            </div>
+
+            <h1>Online Code Runner</h1>
+
+            <p>
+                Run code securely in your browser
+            </p>
+
+        </div>
+
+<div class="dashboard">
+
+    <div class="hero-section">
+
+        <h1>
+
+            Lightweight Browser IDE
+
+        </h1>
+
+        <p>
+
+            Fast multi-language coding environment.
+
+        </p>
+
+    </div>
+
+    <div class="continue-card">
+
+        <h2>
+
+            Continue Coding
+
+        </h2>
+
+        <button
+        onclick="continueWorkspace()">
+
+            Open Last Workspace
+
+        </button>
+
+    </div>
+
+    <div class="editor-grid">
+
+        <a href="python-home.html"
+        class="editor-card">
+
+            Python
+
+        </a>
+
+        <a href="javascript-home.html"
+        class="editor-card">
+
+            JavaScript
+
+        </a>
+
+        <a href="cpp-home.html"
+        class="editor-card">
+
+            C++
+
+        </a>
+
+        <a href="visual-home.html"
+        class="editor-card">
+
+            Visual Playground
+
+        </a>
+
+    </div>
+
+</div>
+
+        <div class="features">
+
+            <div class="feature-box">
+
+                <h3>🔒 Secure</h3>
+
+                <p>
+                    Code execution with protection layers
+                </p>
+
+            </div>
+
+            <div class="feature-box">
+
+                <h3>⚡ Fast</h3>
+
+                <p>
+                    Real-time output and execution
+                </p>
+
+            </div>
+
+            <div class="feature-box">
+
+                <h3>🌐 Browser Based</h3>
+
+                <p>
+                    Run code without installation
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+            <script>
+
+            function continueWorkspace() {
+
+                const lastEditor =
+
+                    localStorage.getItem(
+                        "lastEditor"
+                    );
+
+                if (
+
+                    lastEditor
+                ) {
+
+                    window.location.href =
+                    lastEditor;
+                }
+
+    else {
+
+        window.location.href =
+        "python.html";
+    }
+}
+
+</script>
+
+</body>
+
+</html>

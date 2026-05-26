@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Python Runner</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="ide-layout">
+
+        <div class="sidebar">
+
+            <h2>⚡</h2>
+
+            <a href="python-home.html">🏠</a>
+
+        </div>
+
+        <div class="main-editor">
+
+            <div class="topbar">
+
+                <span>Python Runner</span>
+
+           <div id="execution-status">
+
+             Idle
+
+           </div>
+
+            <div class="topbar-buttons">
+
+                <button 
+                id="run-btn" 
+
+                onclick="runCode()">
+
+                    ▶ Run
+
+                </button>
+
+                <button
+                id="save-btn"
+
+                onclick="saveFile()">
+
+                Save
+
+                </button>
+
+             </div>
+
+            </div>
+
+            <div id="editor"></div>
+
+            <div id="editor-loading">
+
+                Loading editor...
+
+            </div>
+
+            <div class="output-panel">
+
+                <div class="terminal-header">
+                    TERMINAL
+                </div>
+
+                <pre id="output"> Ready.
+
+Press Ctrl + Enter to run code. </pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js"></script>
+
+    <script src="editor-core.js"></script>
+
+    <script src="python.js"></script>
+
+</body>
+
+</html>

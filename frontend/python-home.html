@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Python Workspace</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="welcome-body">
+
+    <div class="welcome-container">
+
+        <h1>Python Workspace</h1>
+
+        <p class="welcome-subtitle">
+
+            Secure containerized development environment
+
+        </p>
+
+        <div class="welcome-actions">
+
+            <a href="python.html"
+
+              onclick="
+              localStorage.removeItem(
+              'pythonFile',
+               )
+               ">
+
+                <button class="welcome-btn">
+
+                    New Python File
+
+                </button>
+
+            </a>
+
+          <label
+          class="welcome-btn secondary-btn">
+
+              Open File
+
+              <input
+
+                  type="file"
+
+                  id="fileInput"
+
+                  hidden
+
+                  accept=".py"
+
+              >
+
+          </label>
+
+        </div>
+
+        <div class="recent-section">
+
+            <h2>Recent</h2>
+
+            <div class="recent-card">
+
+                Python Sandbox Environment
+
+            </div>
+
+        </div>
+
+    </div>
+
+<script src="open-file.js"></script>
+
+</body>
+
+</html>

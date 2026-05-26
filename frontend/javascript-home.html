@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Javascript Workspace</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="welcome-body">
+
+    <div class="welcome-container">
+
+        <h1>Javascript Workspace</h1>
+
+        <p class="welcome-subtitle">
+
+            Secure containerized development environment
+
+        </p>
+
+        <div class="welcome-actions">
+
+            <a href="javascript.html"
+
+             onclick="
+             localStorage.removeItem(
+             'javascriptFile',
+             )
+             ">
+
+                <button class="welcome-btn">
+
+                    New Javascript File
+
+                </button>
+
+            </a>
+
+            <label
+            class="welcome-btn secondary-btn">
+
+                Open File
+
+                <input
+
+                    type="file"
+
+                    id="fileInput"
+
+                    hidden
+
+                    accept=".js"
+
+                >
+
+            </label>
+
+        </div>
+
+    </div>
+
+    <script src="open-js-file.js"></script>
+
+</body>
+
+</html>
