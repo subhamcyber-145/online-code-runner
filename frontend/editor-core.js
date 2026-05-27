@@ -4,6 +4,257 @@ window.editor = null;
 
 function createEditor(config) {
 
+async function runCode(config) {
+
+    if (
+
+        window.isRunning
+
+    ) {
+
+        return;
+    }
+
+
+
+    requestAnimationFrame(
+
+        () => {
+
+            document.getElementById(
+                "run-btn"
+            ).style.opacity = "0.7";
+        }
+    );
+
+
+
+    const output =
+    document.getElementById(
+        "output"
+    );
+
+
+
+    const runButton =
+    document.getElementById(
+        "run-btn"
+    );
+
+
+
+    const status =
+    document.getElementById(
+        "execution-status"
+    );
+
+
+
+    const code =
+    editor.getValue();
+
+
+
+    if (
+
+        code.trim() === ""
+
+    ) {
+
+        output.style.color =
+        "#ff6b6b";
+
+
+
+        output.textContent =
+
+`[ EMPTY FILE ]
+
+Write some code before running.`;
+
+        return;
+    }
+
+
+
+    output.style.color =
+    "#58a6ff";
+
+
+
+    output.textContent =
+
+`[ RUNNING ]
+
+Executing code...`;
+
+
+
+    window.isRunning = true;
+
+
+
+    status.textContent =
+    "Running...";
+
+
+
+    runButton.disabled = true;
+
+
+
+    runButton.textContent =
+    "Running...";
+
+
+
+    try {
+
+        const startTime =
+        performance.now();
+
+
+
+        const response =
+        await fetch(
+
+            "http://127.0.0.1:5000/run",
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    code: code,
+
+                    language:
+                    config.language
+                })
+            }
+        );
+
+
+
+        const data =
+        await response.json();
+
+
+
+        const endTime =
+        performance.now();
+
+
+
+        const executionTime = (
+
+            (endTime - startTime)
+
+            / 1000
+
+        ).toFixed(2);
+
+
+
+        if (
+
+            data.output
+            .toLowerCase()
+            .includes("error")
+
+            ||
+
+            data.output
+            .toLowerCase()
+            .includes("traceback")
+
+        ) {
+
+            output.style.color =
+            "#ff6b6b";
+
+
+
+            status.textContent =
+            "Error";
+
+
+
+            output.textContent =
+
+`[ EXECUTION ERROR ]
+
+${data.output}`;
+        }
+
+        else {
+
+            output.style.color =
+            "#f0f6fc";
+
+
+
+            status.textContent =
+
+`${executionTime}s`;
+
+
+
+            output.textContent =
+
+`[ SUCCESS ]
+
+${data.output}
+
+Executed in ${executionTime}s`;
+        }
+
+    }
+
+    catch (error) {
+
+        output.style.color =
+        "#ff6b6b";
+
+
+
+        status.textContent =
+        "Failed";
+
+
+
+        output.textContent =
+
+`[ BACKEND ERROR ]
+
+Execution server unreachable.`;
+    }
+
+
+
+    runButton.disabled = false;
+
+
+
+    runButton.textContent =
+    "Run";
+
+
+
+    window.isRunning = false;
+
+
+
+    runButton.style.opacity =
+    "1";
+}
+
     require.config({
 
         paths: {
@@ -78,4 +329,255 @@ config.defaultCode,
             ).style.display = "none";
         }
     );
+}
+
+window.runCode = async function (config) {
+
+    if (
+
+        window.isRunning
+
+    ) {
+
+        return;
+    }
+
+
+
+    requestAnimationFrame(
+
+        () => {
+
+            document.getElementById(
+                "run-btn"
+            ).style.opacity = "0.7";
+        }
+    );
+
+
+
+    const output =
+    document.getElementById(
+        "output"
+    );
+
+
+
+    const runButton =
+    document.getElementById(
+        "run-btn"
+    );
+
+
+
+    const status =
+    document.getElementById(
+        "execution-status"
+    );
+
+
+
+    const code =
+    editor.getValue();
+
+
+
+    if (
+
+        code.trim() === ""
+
+    ) {
+
+        output.style.color =
+        "#ff6b6b";
+
+
+
+        output.textContent =
+
+`[ EMPTY FILE ]
+
+Write some code before running.`;
+
+        return;
+    }
+
+
+
+    output.style.color =
+    "#58a6ff";
+
+
+
+    output.textContent =
+
+`[ RUNNING ]
+
+Executing code...`;
+
+
+
+    window.isRunning = true;
+
+
+
+    status.textContent =
+    "Running...";
+
+
+
+    runButton.disabled = true;
+
+
+
+    runButton.textContent =
+    "Running...";
+
+
+
+    try {
+
+        const startTime =
+        performance.now();
+
+
+
+        const response =
+        await fetch(
+
+            "http://127.0.0.1:5000/run",
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    code: code,
+
+                    language:
+                    config.language
+                })
+            }
+        );
+
+
+
+        const data =
+        await response.json();
+
+
+
+        const endTime =
+        performance.now();
+
+
+
+        const executionTime = (
+
+            (endTime - startTime)
+
+            / 1000
+
+        ).toFixed(2);
+
+
+
+        if (
+
+            data.output
+            .toLowerCase()
+            .includes("error")
+
+            ||
+
+            data.output
+            .toLowerCase()
+            .includes("traceback")
+
+        ) {
+
+            output.style.color =
+            "#ff6b6b";
+
+
+
+            status.textContent =
+            "Error";
+
+
+
+            output.textContent =
+
+`[ EXECUTION ERROR ]
+
+${data.output}`;
+        }
+
+        else {
+
+            output.style.color =
+            "#f0f6fc";
+
+
+
+            status.textContent =
+
+`${executionTime}s`;
+
+
+
+            output.textContent =
+
+`[ SUCCESS ]
+
+${data.output}
+
+Executed in ${executionTime}s`;
+        }
+
+    }
+
+    catch (error) {
+
+        output.style.color =
+        "#ff6b6b";
+
+
+
+        status.textContent =
+        "Failed";
+
+
+
+        output.textContent =
+
+`[ BACKEND ERROR ]
+
+Execution server unreachable.`;
+    }
+
+
+
+    runButton.disabled = false;
+
+
+
+    runButton.textContent =
+    "Run";
+
+
+
+    window.isRunning = false;
+
+
+
+    runButton.style.opacity =
+    "1";
 }
