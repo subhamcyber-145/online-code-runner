@@ -81,6 +81,67 @@ body {
     border-color 0.2s;
 }
 
+.editor-tabs {
+
+    display: flex;
+
+    gap: 8px;
+
+    padding: 6px 10px;
+
+    background: #0b1220;
+
+    border: 1px solid #1f2937;
+
+    border-radius: 14px;
+
+    margin-top: 20px;
+
+    margin-bottom: 10px;
+
+    border-radius: 12px 12px 0 0;
+
+    border-left: 1px solid #1f2937;
+
+    border-right: 1px solid #1f2937;
+
+    border-top: 1px solid #1f2937;
+}
+
+.tab-link {
+
+    text-decoration: none;
+
+    color: #94a3b8;
+
+    padding: 7px 14px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    transition: all 0.2s ease;
+}
+
+.tab-link:hover {
+
+    background: #1e293b;
+
+    color: white;
+
+    transform: translateY(-1px);
+}
+
+.active-tab {
+
+    background: #2563eb;
+
+    color: white;
+
+    box-shadow:
+    0 0 15px rgba(37,99,235,0.35);
+}
+
 .editor-card:hover {
 
     transform: translateY(-3px);
@@ -370,6 +431,13 @@ body {
     font-shrink: 0;
 }
 
+.app-layout {
+
+    display: flex;
+
+    min-height: 100vh;
+}
+
 button {
 
     border: none;
@@ -488,7 +556,7 @@ button:active {
 
 #output-container {
 
-    height: 220px;
+    height: 180px;
 
     min-height: 220px;
 
@@ -625,6 +693,22 @@ button:active {
     font-size: 18px;
 }
 
+.preview-header {
+
+    padding: 10px;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
+    color: #94a3b8;
+
+    border-bottom:
+    1px solid #1f2937;
+
+    background: #0b1220;
+}
+
 .visual-body {
 
     margin: 0;
@@ -639,6 +723,41 @@ button:active {
     display: flex;
 
     height: 100vh;
+}
+
+.visual-workspace {
+
+    display: flex;
+
+    height: calc(100vh - 170px);
+}
+
+.visual-editor {
+
+    width: 62%;
+
+    height: 100%;
+
+    position: relative;
+
+    border-right:
+    1px solid #1f2937;
+}
+
+.visual-preview {
+
+    width: 38%;
+
+    height: 100%;
+
+    background: white;
+}
+
+#editor {
+
+    width: 100%;
+
+    height: 100%;
 }
 
 .editor-side {

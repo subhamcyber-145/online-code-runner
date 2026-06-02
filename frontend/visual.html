@@ -1,61 +1,169 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-    <title>Visual Playground</title>
+    <meta charset="UTF-8" />
 
-    <link rel="stylesheet" href="style.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>
+        Visual Playground
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 
 </head>
 
-<body class="visual-body">
+<body>
 
-    <div class="visual-layout">
+    <div class="app-layout">
 
-        <div class="editor-side">
+
+
+
+        <div class="sidebar">
+
+            <a
+                href="index.html"
+                class="sidebar-logo"
+            >
+                ⚡
+            </a>
+
+            <a
+                href="index.html"
+                class="sidebar-home"
+            >
+                🏠
+            </a>
+
+        </div>
+
+
+
+
+
+        <div class="main-content">
+
+
+
+
 
             <div class="topbar">
 
-                <span>
+                <div class="topbar-left">
 
                     Visual Playground
-
-                </span>
-
-                <div class="topbar-buttons">
-
-                    <button
-                    id="save-btn"
-
-                    onclick="saveFile()">
-
-                        Save
-
-                    </button>
 
                 </div>
 
             </div>
 
-            <div id="visual-editor"></div>
+
+
+
+
+            <div class="editor-tabs">
+
+                <a
+                    href="python.html"
+                    class="tab-link"
+                >
+                    Python
+                </a>
+
+                <a
+                    href="javascript.html"
+                    class="tab-link"
+                >
+                    JavaScript
+                </a>
+
+                <a
+                    href="cpp.html"
+                    class="tab-link"
+                >
+                    C++
+                </a>
+
+                <a
+                    href="visual.html"
+                    class="tab-link active-tab"
+                >
+                    Visual
+                </a>
+
+            </div>
+
+
+
+
+
+
+            <div class="visual-workspace">
+
+
+
+
+
+                <div class="visual-editor">
+
+                    <div id="editor-loading">
+
+                        Loading editor...
+
+                    </div>
+
+                    <div id="editor"></div>
+
+                </div>
+
+
+                <div class="visual-preview">
+
+                <div class="preview-header">
+
+                   LIVE PREVIEW
+
+                </div>
+
+                    <iframe
+                        id="preview-frame"
+                    ></iframe>
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+
+
 
         </div>
 
-        <div id="drag-bar"></div>
 
-        <div class="preview-side">
 
-            <iframe
-            id="preview-frame">
-
-            </iframe>
-
-        </div>
 
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+
+
+
+
+    <script src="editor-core.js"></script>
 
     <script src="visual.js"></script>
 

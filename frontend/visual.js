@@ -1,236 +1,66 @@
-let visualEditor;
+createEditor({
 
-localStorage.setItem(
-"lastEditor",
-"visual.html"
-);
+    language: "html",
 
-require.config({
+    storageKey: "visualCode",
 
-    paths: {
+    defaultCode:
 
-        vs:
-"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs"
+`<!DOCTYPE html>
 
-    }
+<html>
 
-});
+<body style="background:black; color:white;">
 
-require(
-
-    ["vs/editor/editor.main"],
-
-    function () {
-
-        visualEditor =
-        monaco.editor.create(
-
-            document.getElementById(
-                "visual-editor"
-            ),
-
-            {
-
-value:
-
-localStorage.getItem(
-"visualCode"
-)
-
-||
-
-`<html>
-
-<body style="background:black;">
-
-<h1 style="color:white;">
-
-Hello Visual Playground
-
-</h1>
+<h1>Hello Visual Playground</h1>
 
 </body>
 
-</html>`,
+</html>`
+});
 
-                language: "html",
 
-                theme: "vs-dark",
 
-                automaticLayout: true,
 
-                fontSize: 15
-            }
-        );
 
-        runVisualCode();
-
-        let previewTimeout;
-
-        visualEditor.onDidChangeModelContent(
-            () => {
-
-                clearTimeout(
-                    previewTimeout
-                );
-
-                previewTimeout =
-                setTimeout(() => {
-
-                    runVisualCode();
-
-                }, 500);
-            }
-        );
-    }
-);
-
-visualEditor.onDidChangeModelContent(
-
-    function () {
-
-        localStorage.setItem(
-
-            "visualCode",
-
-            visualEditor.getValue()
-        );
-    }
-);
-
-function runVisualCode() {
+function updatePreview() {
 
     const code =
-    visualEditor.getValue();
+    editor.getValue();
 
-    const previewFrame =
+
+
+    const iframe =
     document.getElementById(
         "preview-frame"
     );
 
-    previewFrame.srcdoc = code;
+
+
+    iframe.srcdoc = code;
 }
 
-document.addEventListener(
 
-    "keydown",
 
-    function (e) {
 
-        if (
 
-            e.ctrlKey
+setTimeout(
 
-            &&
+    function () {
 
-            e.key === "Enter"
+        updatePreview();
 
-        ) {
 
-            e.preventDefault();
 
-            runCode();
-        }
+        editor.onDidChangeModelContent(
 
-        if (
+            function () {
 
-            e.ctrlKey
+                updatePreview();
+            }
+        );
 
-            &&
+    },
 
-            e.key.toLowerCase() === "s"
-
-        ) {
-
-            e.preventDefault();
-
-            saveFile();
-        }
-    }
+    1000
 );
-
-document.addEventListener(
-
-    "keydown",
-
-    function (e) {
-
-        if (
-
-            e.ctrlKey
-
-            &&
-
-            e.key.toLowerCase() === "s"
-
-        ) {
-
-            e.preventDefault();
-
-            saveFile();
-        }
-    }
-);
-
-function saveFile() {
-
-    const code =
-    visualEditor.getValue();
-
-    const blob =
-    new Blob(
-
-        [code],
-
-        {
-
-            type: "text/html"
-        }
-    );
-
-    const url =
-    URL.createObjectURL(
-        blob
-    );
-
-    const a =
-    document.createElement("a");
-
-    a.href = url;
-
-    a.download = "index.html";
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    document.body.removeChild(a);
-
-    URL.revokeObjectURL(
-        url
-    );
-}
-
-document.addEventListener(
-
-    "keydown",
-
-    function (e) {
-
-        if (
-
-            e.ctrlKey
-
-            &&
-
-            e.key.toLowerCase() === "s"
-
-        ) {
-
-            e.preventDefault();
-
-            saveFile();
-        }
-    }
-);
-
