@@ -162,10 +162,11 @@ Executing code...`;
     window.isRunning = true;
 
 
+status.textContent =
+"Running...";
 
-    status.textContent =
-    "Running...";
-
+status.className =
+"status-running";
 
 
     runButton.disabled = true;
@@ -281,10 +282,12 @@ ${data.output}`;
 
 
 
-            status.textContent =
+status.textContent =
 
-            `${executionTime}s`;
+`${executionTime}s`;
 
+status.className =
+"status-success";
 
 
             output.textContent =
@@ -308,8 +311,10 @@ Executed in ${executionTime}s`;
 
 
         status.textContent =
-        "Failed";
+        "Error";
 
+        status.className =
+        "status-error";
 
 
         output.textContent =
@@ -334,6 +339,21 @@ Execution server unreachable.`;
     "1";
 
 
+setTimeout(
+
+    function () {
+
+        status.textContent =
+        "Idle";
+
+        status.className =
+        "status-idle";
+
+    },
+
+    3000
+);
+
 
     window.isRunning = false;
 };
@@ -355,5 +375,25 @@ document
         document.getElementById(
             "output"
         ).textContent = "";
+    }
+);
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    function () {
+
+        const status =
+
+        document.getElementById(
+            "execution-status"
+        );
+
+        if (status) {
+
+            status.className =
+            "status-idle";
+        }
     }
 );

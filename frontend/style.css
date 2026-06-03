@@ -957,3 +957,29 @@ button:active {
 
     background: #334155;
 }
+
+.status-idle {
+
+    color: #94a3b8 !important;
+}
+
+
+
+.status-running {
+
+    color: #f59e0b !important;
+}
+
+
+
+.status-success {
+
+    color: #22c55e !important;
+}
+
+
+
+.status-error {
+
+    color: #ef4444 !important;
+}
