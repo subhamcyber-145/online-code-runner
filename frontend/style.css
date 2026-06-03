@@ -923,15 +923,37 @@ button:active {
     }
 }
 
-.terminal-header {
+#terminal-header {
 
-    color: #8b949e;
+    display: flex;
 
-    font-size: 13px;
+    justify-content: space-between;
 
-    margin-bottom: 10px;
+    align-items: center;
 
-    font-family: monospace;
+    padding: 10px 15px;
 
-    letter-spacing: 1px;
+    border-bottom: 1px solid #1f2937;
+}
+
+#clear-terminal-btn {
+
+    background: #1e293b;
+
+    color: white;
+
+    border: none;
+
+    padding: 5px 12px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+
+
+#clear-terminal-btn:hover {
+
+    background: #334155;
 }

@@ -1,16 +1,276 @@
 window.editor = null;
-window.isRunning = false;
 
 
 
 function createEditor(config) {
+
+async function runCode(config) {
+
+    if (
+
+        window.isRunning
+
+    ) {
+
+        return;
+    }
+
+
+
+    requestAnimationFrame(
+
+        () => {
+
+            document.getElementById(
+                "run-btn"
+            ).style.opacity = "0.7";
+        }
+    );
+
+
+
+    const output =
+    document.getElementById(
+        "output"
+    );
+
+
+
+    const runButton =
+    document.getElementById(
+        "run-btn"
+    );
+
+
+
+    const status =
+    document.getElementById(
+        "execution-status"
+    );
+
+
+
+    const code =
+    editor.getValue();
+
+
+
+    if (
+
+        code.trim() === ""
+
+    ) {
+
+        output.style.color =
+        "#ff6b6b";
+
+
+
+        output.textContent =
+
+`[ EMPTY FILE ]
+
+Write some code before running.`;
+
+        return;
+    }
+
+
+
+    output.style.color =
+    "#58a6ff";
+
+
+
+    output.textContent =
+
+`[ RUNNING ]
+
+Executing code...`;
+
+
+
+    window.isRunning = true;
+
+
+
+    status.textContent =
+    "Running...";
+
+
+
+    runButton.disabled = true;
+
+
+
+    runButton.textContent =
+    "Running...";
+
+
+
+    try {
+
+        const startTime =
+        performance.now();
+
+
+
+        const response =
+        await fetch(
+
+            "http://127.0.0.1:5000/run",
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    code: code,
+
+                    language:
+                    config.language
+                })
+            }
+        );
+
+
+
+        const data =
+        await response.json();
+
+
+
+        const endTime =
+        performance.now();
+
+
+
+        const executionTime = (
+
+            (endTime - startTime)
+
+            / 1000
+
+const timestamp =
+new Date()
+.toLocaleTimeString();
+
+        ).toFixed(2);
+
+
+
+        if (
+
+            data.output
+            .toLowerCase()
+            .includes("error")
+
+            ||
+
+            data.output
+            .toLowerCase()
+            .includes("traceback")
+
+        ) {
+
+            output.style.color =
+            "#ff6b6b";
+
+
+
+            status.textContent =
+            "Error";
+
+
+
+            output.textContent =
+
+`[ EXECUTION ERROR ]
+
+${data.output}`;
+        }
+
+        else {
+
+            output.style.color =
+            "#f0f6fc";
+
+
+
+            status.textContent =
+
+`${executionTime}s`;
+
+
+
+            output.textContent =
+
+`[ SUCCESS ]
+
+${timestamp}
+
+${data.output}
+
+Executed in ${executionTime}s`;
+
+        }
+
+    }
+
+    catch (error) {
+
+        output.style.color =
+        "#ff6b6b";
+
+
+
+        status.textContent =
+        "Failed";
+
+
+
+           utput.textContent =
+
+`[ EXECUTION ERROR ]
+
+${timestamp}
+
+${data.output}`;
+
+    }
+
+
+
+    runButton.disabled = false;
+
+
+
+    runButton.textContent =
+    "Run";
+
+
+
+    window.isRunning = false;
+
+
+
+    runButton.style.opacity =
+    "1";
+}
 
     require.config({
 
         paths: {
 
             vs:
-            "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs"
+"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs"
         }
     });
 
@@ -35,13 +295,13 @@ function createEditor(config) {
 
                     value:
 
-                    localStorage.getItem(
-                        config.storageKey
-                    )
+localStorage.getItem(
+config.storageKey
+)
 
-                    ||
+||
 
-                    config.defaultCode,
+config.defaultCode,
 
                     language:
                     config.language,
@@ -81,10 +341,6 @@ function createEditor(config) {
     );
 }
 
-
-
-
-
 window.runCode = async function (config) {
 
     if (
@@ -95,6 +351,18 @@ window.runCode = async function (config) {
 
         return;
     }
+
+
+
+    requestAnimationFrame(
+
+        () => {
+
+            document.getElementById(
+                "run-btn"
+            ).style.opacity = "0.7";
+        }
+    );
 
 
 
@@ -120,7 +388,7 @@ window.runCode = async function (config) {
 
 
     const code =
-    window.editor.getValue();
+    editor.getValue();
 
 
 
@@ -231,27 +499,17 @@ Executing code...`;
 
 
 
-        const timestamp =
-
-        new Date()
-        .toLocaleTimeString();
-
-
-
-        const lowerOutput =
-
-        (data.output || "")
-        .toLowerCase();
-
-
-
         if (
 
-            lowerOutput.includes("error")
+            data.output
+            .toLowerCase()
+            .includes("error")
 
             ||
 
-            lowerOutput.includes("traceback")
+            data.output
+            .toLowerCase()
+            .includes("traceback")
 
         ) {
 
@@ -269,8 +527,6 @@ Executing code...`;
 
 `[ EXECUTION ERROR ]
 
-${timestamp}
-
 ${data.output}`;
         }
 
@@ -283,15 +539,13 @@ ${data.output}`;
 
             status.textContent =
 
-            `${executionTime}s`;
+`${executionTime}s`;
 
 
 
             output.textContent =
 
 `[ SUCCESS ]
-
-${timestamp}
 
 ${data.output}
 
@@ -330,17 +584,13 @@ Execution server unreachable.`;
 
 
 
+    window.isRunning = false;
+
+
+
     runButton.style.opacity =
     "1";
-
-
-
-    window.isRunning = false;
-};
-
-
-
-
+}
 
 document
 .getElementById(
@@ -355,5 +605,6 @@ document
         document.getElementById(
             "output"
         ).textContent = "";
+
     }
 );
