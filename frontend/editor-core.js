@@ -582,3 +582,30 @@ document
         );
     }
 );
+
+document.addEventListener(
+
+    "keydown",
+
+    function(event) {
+
+        if (
+
+            event.ctrlKey
+
+            &&
+
+            event.key.toLowerCase() === "l"
+
+        ) {
+
+            event.preventDefault();
+
+
+
+            document.getElementById(
+                "output"
+            ).textContent = "";
+        }
+    }
+);
