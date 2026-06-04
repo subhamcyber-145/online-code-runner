@@ -390,6 +390,30 @@ body {
     font-size: 24px;
 }
 
+.sidebar-logo,
+.sidebar-home {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #cbd5e1;
+
+    text-decoration: none;
+}
+
+.sidebar-logo:hover,
+.sidebar-home:hover {
+
+    color: white;
+
+    transform: scale(1.08);
+
+    transition: 0.2s;
+}
+
 .main-editor {
 
     flex: 1;
