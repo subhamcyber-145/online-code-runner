@@ -397,3 +397,188 @@ document.addEventListener(
         }
     }
 );
+
+function downloadCode(filename) {
+
+    const code =
+    window.editor.getValue();
+
+
+
+    const blob =
+
+    new Blob(
+
+        [code],
+
+        {
+            type:
+            "text/plain"
+        }
+    );
+
+
+
+    const url =
+
+    URL.createObjectURL(
+        blob
+    );
+
+
+
+    const link =
+
+    document.createElement(
+        "a"
+    );
+
+
+
+    link.href =
+    url;
+
+
+
+    link.download =
+    filename;
+
+
+
+    link.click();
+
+
+
+    URL.revokeObjectURL(
+        url
+    );
+}
+
+document
+.getElementById(
+    "download-btn"
+)
+?.addEventListener(
+
+    "click",
+
+    function () {
+
+        const page =
+
+        window.location.pathname;
+
+
+
+        if (
+
+            page.includes(
+                "python"
+            )
+
+        ) {
+
+            downloadCode(
+                "main.py"
+            );
+        }
+
+        else if (
+
+            page.includes(
+                "javascript"
+            )
+
+        ) {
+
+            downloadCode(
+                "app.js"
+            );
+        }
+
+        else if (
+
+            page.includes(
+                "cpp"
+            )
+
+        ) {
+
+            downloadCode(
+                "main.cpp"
+            );
+        }
+    }
+);
+
+document
+.getElementById(
+    "upload-btn"
+)
+?.addEventListener(
+
+    "click",
+
+    function () {
+
+        document
+        .getElementById(
+            "file-input"
+        )
+        .click();
+    }
+);
+
+document
+.getElementById(
+    "file-input"
+)
+?.addEventListener(
+
+    "change",
+
+    function (event) {
+
+        const file =
+
+        event.target.files[0];
+
+
+
+        if (!file) {
+
+            return;
+        }
+
+
+
+        const reader =
+
+        new FileReader();
+
+
+
+        reader.onload =
+
+        function (e) {
+
+            if (
+
+                window.editor
+
+            ) {
+
+                window.editor.setValue(
+
+                    e.target.result
+                );
+            }
+        };
+
+
+
+        reader.readAsText(
+            file
+        );
+    }
+);
