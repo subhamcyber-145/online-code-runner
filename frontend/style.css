@@ -601,6 +601,27 @@ button:active {
     overflow: hidden;
 }
 
+#status-bar {
+
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 12px;
+
+    font-size: 12px;
+
+    color: #94a3b8;
+
+    background: #0b1220;
+
+    border-top: 1px solid #1f2937;
+
+    flex-shrink: 0;
+}
+
 .sidebar a,
 .sidebar-icon {
 
