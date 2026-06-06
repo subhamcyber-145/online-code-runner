@@ -3,6 +3,97 @@ window.isRunning = false;
 
 
 
+function getOutput() {
+
+    return document.getElementById(
+        "output"
+    );
+}
+
+
+
+function getStatus() {
+
+    return document.getElementById(
+        "execution-status"
+    );
+}
+
+
+
+function getRunButton() {
+
+    return document.getElementById(
+        "run-btn"
+    );
+}
+
+
+
+function clearTerminal() {
+
+    const output =
+    getOutput();
+
+    if (output) {
+
+        output.textContent = "";
+    }
+}
+
+
+
+function setStatus(
+    text,
+    className
+) {
+
+    const status =
+    getStatus();
+
+    if (!status) {
+
+        return;
+    }
+
+    status.textContent =
+    text;
+
+    status.className =
+    className;
+}
+
+
+
+function updateFileName(
+    filename
+) {
+
+    const fileLabel =
+
+    document.getElementById(
+        "current-file"
+    );
+
+    if (fileLabel) {
+
+        fileLabel.textContent =
+        "📄 " + filename;
+    }
+}
+
+
+
+function getTimestamp() {
+
+    return new Date()
+        .toLocaleTimeString();
+}
+
+
+
+
+
 function createEditor(config) {
 
     require.config({
@@ -13,7 +104,6 @@ function createEditor(config) {
             "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs"
         }
     });
-
 
 
 
@@ -34,13 +124,6 @@ function createEditor(config) {
                 {
 
                     value:
-
-                    localStorage.getItem(
-                        config.storageKey
-                    )
-
-                    ||
-
                     config.defaultCode,
 
                     language:
@@ -54,21 +137,6 @@ function createEditor(config) {
 
                     fontSize:
                     15
-                }
-            );
-
-
-
-            window.editor.onDidChangeModelContent(
-
-                function () {
-
-                    localStorage.setItem(
-
-                        config.storageKey,
-
-                        window.editor.getValue()
-                    );
                 }
             );
 
@@ -99,23 +167,12 @@ window.runCode = async function (config) {
 
 
     const output =
-    document.getElementById(
-        "output"
-    );
+    getOutput();
 
 
 
     const runButton =
-    document.getElementById(
-        "run-btn"
-    );
-
-
-
-    const status =
-    document.getElementById(
-        "execution-status"
-    );
+    getRunButton();
 
 
 
@@ -159,14 +216,15 @@ Executing code...`;
 
 
 
+    setStatus(
+        "Running...",
+        "status-running"
+    );
+
+
+
     window.isRunning = true;
 
-
-status.textContent =
-"Running...";
-
-status.className =
-"status-running";
 
 
     runButton.disabled = true;
@@ -233,9 +291,7 @@ status.className =
 
 
         const timestamp =
-
-        new Date()
-        .toLocaleTimeString();
+        getTimestamp();
 
 
 
@@ -261,8 +317,10 @@ status.className =
 
 
 
-            status.textContent =
-            "Error";
+            setStatus(
+                "Error",
+                "status-error"
+            );
 
 
 
@@ -282,12 +340,13 @@ ${data.output}`;
 
 
 
-status.textContent =
+            setStatus(
 
-`${executionTime}s`;
+                `${executionTime}s`,
 
-status.className =
-"status-success";
+                "status-success"
+            );
+
 
 
             output.textContent =
@@ -310,11 +369,11 @@ Executed in ${executionTime}s`;
 
 
 
-        status.textContent =
-        "Error";
+        setStatus(
+            "Error",
+            "status-error"
+        );
 
-        status.className =
-        "status-error";
 
 
         output.textContent =
@@ -339,20 +398,21 @@ Execution server unreachable.`;
     "1";
 
 
-setTimeout(
 
-    function () {
+    setTimeout(
 
-        status.textContent =
-        "Idle";
+        function () {
 
-        status.className =
-        "status-idle";
+            setStatus(
+                "Idle",
+                "status-idle"
+            );
 
-    },
+        },
 
-    3000
-);
+        3000
+    );
+
 
 
     window.isRunning = false;
@@ -361,42 +421,6 @@ setTimeout(
 
 
 
-
-document
-.getElementById(
-    "clear-terminal-btn"
-)
-?.addEventListener(
-
-    "click",
-
-    function () {
-
-        document.getElementById(
-            "output"
-        ).textContent = "";
-    }
-);
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    function () {
-
-        const status =
-
-        document.getElementById(
-            "execution-status"
-        );
-
-        if (status) {
-
-            status.className =
-            "status-idle";
-        }
-    }
-);
 
 function downloadCode(filename) {
 
@@ -412,6 +436,7 @@ function downloadCode(filename) {
         [code],
 
         {
+
             type:
             "text/plain"
         }
@@ -453,6 +478,10 @@ function downloadCode(filename) {
         url
     );
 }
+
+
+
+
 
 document
 .getElementById(
@@ -511,6 +540,10 @@ document
     }
 );
 
+
+
+
+
 document
 .getElementById(
     "upload-btn"
@@ -525,9 +558,13 @@ document
         .getElementById(
             "file-input"
         )
-        .click();
+        ?.click();
     }
 );
+
+
+
+
 
 document
 .getElementById(
@@ -573,18 +610,14 @@ document
                     e.target.result
                 );
             }
+
+
+
+            updateFileName(
+                file.name
+            );
         };
 
-const fileLabel =
-document.getElementById(
-    "current-file"
-);
-
-if (fileLabel) {
-
-    fileLabel.textContent =
-    "📄 " + file.name;
-}
 
 
         reader.readAsText(
@@ -593,11 +626,33 @@ if (fileLabel) {
     }
 );
 
+
+
+
+
+document
+.getElementById(
+    "clear-terminal-btn"
+)
+?.addEventListener(
+
+    "click",
+
+    function () {
+
+        clearTerminal();
+    }
+);
+
+
+
+
+
 document.addEventListener(
 
     "keydown",
 
-    function(event) {
+    function (event) {
 
         if (
 
@@ -611,11 +666,24 @@ document.addEventListener(
 
             event.preventDefault();
 
-
-
-            document.getElementById(
-                "output"
-            ).textContent = "";
+            clearTerminal();
         }
+    }
+);
+
+
+
+
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    function () {
+
+        setStatus(
+            "Idle",
+            "status-idle"
+        );
     }
 );
