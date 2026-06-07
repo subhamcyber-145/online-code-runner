@@ -5,26 +5,40 @@ from executor import *
 
 app = Flask(__name__)
 
+app.config["MAX_CONTENT_LENGTH"] = 1024 * 1024
+
 CORS(app)
 
 
 @app.route("/")
 def home():
 
-    return "Backend Running"
+    return jsonify({
+        "status": "online"
+    })
 
 
 @app.route("/run", methods=["POST"])
-
 def run_code():
 
     try:
 
-        data = request.json
+        data = request.get_json()
 
-        code = data.get("code")
+        if not data:
 
-        language = data.get("language")
+            return jsonify({
+                "output": "Invalid request"
+            }), 400
+
+        code = data.get("code", "")
+        language = data.get("language", "")
+
+        if not code:
+
+            return jsonify({
+                "output": "No code provided"
+            }), 400
 
         if language == "python":
 
@@ -40,45 +54,24 @@ def run_code():
 
         else:
 
-            output = "Unsupported language"
+            return jsonify({
+                "output": "Unsupported language"
+            }), 400
 
         return jsonify({
-
             "output": output
         })
 
-    except Exception as e:
+    except Exception:
 
         return jsonify({
-
-            "output": str(e)
-        })
-
-
-@app.route("/logs")
-def get_logs():
-
-    try:
-
-        with open("logs.txt", "r") as log_file:
-
-            logs = log_file.read()
-
-        return jsonify({
-            "logs": logs
-        })
-
-    except Exception as e:
-
-        return jsonify({
-            "error": str(e)
-        })
+            "output": "Internal server error"
+        }), 500
 
 
 if __name__ == "__main__":
 
     app.run(
         host="0.0.0.0",
-        port=5000,
-        debug=True
+        port=5000
     )

@@ -1,24 +1,28 @@
 # Online Code Runner
 
-A browser-based secure code execution platform built with:
-
-- Flask backend
-- Monaco Editor frontend
-- Python execution
-- JavaScript execution
-
 ## Features
+- Python Execution
+- JavaScript Execution
+- C++ Execution
+- Monaco Editor
+- Upload Files
+- Download Files
+- Status Bar
+- Visual Playground
 
-- Code execution
-- Timeout protection
-- Resource limiting
-- Dangerous keyword filtering
-- Output limiting
-- Execution logging
-- Monaco IDE editor
-- Multi-language support
+## Tech Stack
+- Flask
+- Docker
+- Monaco Editor
+- HTML/CSS/JavaScript
 
-## Run Project
+## Run Locally
 
-```bash
-./start.sh
+### Backend
+
+pip install -r requirements.txt
+python app.py
+
+### Frontend
+
+Open index.html
