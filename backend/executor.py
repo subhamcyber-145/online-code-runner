@@ -190,85 +190,79 @@ def execute_javascript_code(code):
 
 
 
-
-
 def execute_cpp_code(code):
 
     try:
 
         with tempfile.TemporaryDirectory() as temp_dir:
 
-
-
             cpp_path = os.path.join(
                 temp_dir,
                 "main.cpp"
             )
 
-
-
-            exe_path = os.path.join(
-                temp_dir,
-                "main"
-            )
-
-
-
-            with open(cpp_path, "w") as cpp_file:
+            with open(
+                cpp_path,
+                "w"
+            ) as cpp_file:
 
                 cpp_file.write(code)
 
 
 
-            compile_command = [
+            command = [
 
-                "g++",
+                "docker",
 
-                cpp_path,
+                "run",
 
-                "-o",
+                "--rm",
 
-                exe_path
+                "--memory",
+
+                "100m",
+
+                "--cpus",
+
+                "1",
+
+                "--network",
+
+                "none",
+
+                "-v",
+
+                f"{temp_dir}:/app",
+
+                "gcc:13",
+
+                "bash",
+
+                "-c",
+
+                "g++ /app/main.cpp -o /app/main && /app/main"
             ]
 
 
 
-            compile_result = subprocess.run(
+            result = subprocess.run(
 
-                compile_command,
-
-                capture_output=True,
-
-                text=True,
-
-                timeout=5
-            )
-
-
-
-            if compile_result.returncode != 0:
-
-                return compile_result.stderr
-
-
-
-            run_result = subprocess.run(
-
-                [exe_path],
+                command,
 
                 capture_output=True,
 
                 text=True,
 
-                timeout=5
+                timeout=10
             )
 
 
 
             output = (
-                run_result.stdout
+
+                result.stdout
                 +
-                run_result.stderr
+                result.stderr
             )
 
 
@@ -292,3 +286,6 @@ def execute_cpp_code(code):
     except Exception as e:
 
         return f"Execution error: {str(e)}"
+
+
+
