@@ -50,3 +50,6 @@ The backend uses Docker-based execution and is intended for local/VPS deployment
 
 ### C++ Editor
 ![C++](screenshots/C++.png)
+
+### Visual Editor
+![Visual](screenshots/Visual.png)
