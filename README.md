@@ -40,13 +40,13 @@ The backend uses Docker-based execution and is intended for local/VPS deployment
 ## Screenshots
 
 ### Home Page
-![Home](screenshots/home.png)
+![Home](screenshots/Home.png)
 
 ### Python Editor
-![Python](screenshots/python.png)
+![Python](screenshots/Python.png)
 
 ### JavaScript Editor
-![JavaScript](screenshots/javascript.png)
+![JavaScript](screenshots/JavaScript.png)
 
 ### C++ Editor
-![C++](screenshots/cpp.png)
+![C++](screenshots/C++.png)
