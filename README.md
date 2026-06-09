@@ -26,3 +26,13 @@ python app.py
 ### Frontend
 
 Open index.html
+
+## Live Demo
+
+https://your-vercel-url.vercel.app
+
+## Note
+
+The public demo showcases the frontend interface.
+
+The backend uses Docker-based execution and is intended for local/VPS deployment.
