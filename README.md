@@ -36,3 +36,17 @@ https://your-vercel-url.vercel.app
 The public demo showcases the frontend interface.
 
 The backend uses Docker-based execution and is intended for local/VPS deployment.
+
+## Screenshots
+
+### Home Page
+![Home](screenshots/home.png)
+
+### Python Editor
+![Python](screenshots/python.png)
+
+### JavaScript Editor
+![JavaScript](screenshots/javascript.png)
+
+### C++ Editor
+![C++](screenshots/cpp.png)
